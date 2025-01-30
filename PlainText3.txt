@@ -1,0 +1,151 @@
+#
+# PlainText3.txt (English) 2021-10-05
+#
+# Keith Fenske, http://kwfenske.github.io/
+#
+# This is the configuration data file for the PlainText3 Java application. The
+# expected file name is "PlainText3.txt" (without the quotes) in the current
+# working directory, which is usually the same folder as the program's *.class
+# files. See also the -d option on the program's command line. If this file is
+# not found, then the program continues without printing an error.
+#
+# You may edit this file to change the character conversion table. Characters
+# are processed in their extended Unicode or UTF-32 form. The high and low
+# surrogate pairs used by UTF-16 will not be recognized. This file should be in
+# plain text or "ASCII" format, or else it must be encoded in UTF-8 format if
+# there are any non-ASCII characters (higher than U+007F).
+#
+# This file contains character data from the Unicode Consortium; please visit
+# their web site at http://www.unicode.org/ for more information. Other than
+# data obtained from the above source, this file is copyright (c) 2019 by Keith
+# Fenske and released under the terms and conditions of the Apache License
+# (version 2.0 or later) and/or the GNU General Public License (GPL, version 2
+# or later).
+#
+###############################################################################
+#
+# Comments
+#
+# Comments in this file begin with a number sign (#) and go to the end of the
+# same line. An entire line can be a comment. Comments may appear after a
+# complete rule (below). Blank or empty lines are ignored, and are treated as
+# comments.
+#
+###############################################################################
+#
+# Character Numbers, Low-High Ranges, and Quoted Strings
+#
+# Characters are matched as Unicode character numbers, or in a low-high range,
+# or as quoted strings. Unicode character numbers are hexadecimal from U+0000
+# to U+10FFFF. For example, the Unicode character number for the capital letter
+# "A" is:
+#
+#     U+0041
+#
+# This is the same as 65 in decimal or 0x41 in hexadecimal. A low-high range
+# has two Unicode character numbers separated by a colon (:). For example:
+#
+#     U+0020 : U+007E
+#
+# is a range for the printable US-ASCII or keyboard characters. A quoted string
+# starts and ends with a double quotation mark ("):
+#
+#     "cats and dogs"
+#
+# Quotation marks are not allowed inside a quoted string. One or more Unicode
+# character numbers or quoted strings can appear together, separated by spaces,
+# and will be combined into a single string (concatenated). The input:
+#
+#     "abc" U+0022 "def"
+#
+# is equivalent to a string with the following seven characters:
+#
+#     abc"def
+#
+# For compatibility with previous versions, there is a command-line option to
+# enable XML character references in strings for this configuration file. The
+# standard character references are:
+#
+#     &amp;   &   ampersand (U+0026)
+#     &apos;  '   apostrophe (U+0027)
+#     &gt;    >   greater-than sign (U+003E)
+#     &lt;    <   less-than sign (U+003C)
+#     &quot;  "   quotation mark (U+0022)
+#
+# Numeric XML character references are supported in decimal and hexadecimal:
+# &#8225; and &#x2021; are both the double dagger symbol. See the following web
+# page:
+#
+#     http://www.w3.org/TR/REC-xml/#sec-references
+#
+# An ampersand (&) by itself is incorrect and must appear as &amp; or U+0026
+# when XML character references are enabled.
+#
+###############################################################################
+#
+# Rules: Accept, Delete, Replace
+#
+# Starting from the beginning of the text, the first matching rule below is
+# applied. If no matching rule is found, then one character is accepted as-is
+# and the next character is tested.
+#
+# An "accept" rule makes no changes but prevents a later rule. The parameter
+# can be one or more Unicode character numbers or quoted strings (with at least
+# one character in total), or can be one low-high range. For example, to keep
+# the capital letter "H" but replace all other capital letters with an asterisk
+# (*):
+#
+#     accept "H"		# don't change capital "H"
+#     replace U+0041 : U+005A = "*" # all capital letters
+#
+# A "delete" rule removes matched characters, and is the same as a "replace"
+# rule with an empty string. The parameter can be one or more character numbers
+# or strings (not empty), or one low-high range. For example:
+#
+#     delete U+FEFF		# Zero Width No-Break Space
+#
+# A "replace" rule has a left side and a right side separated by an equal sign
+# (=). The left side matches text and can be one or more character numbers or
+# strings (not empty), or one low-high range. The right side replaces the
+# matched text and can be one or more character numbers or strings (possibly
+# empty). Replace rules are the most common rules and examples are given below.
+#
+replace U+00A0 = " "		# No-Break Space
+replace U+00A9 = "(c)"		# Copyright Sign
+replace U+00D7 = "x"		# Multiplication Sign
+replace U+2013 = "-"		# En Dash
+replace U+2014 = "--" 		# Em Dash
+replace U+2018 = "'" 		# Left Single Quotation Mark
+replace U+2019 = "'" 		# Right Single Quotation Mark
+replace U+201A = "'" 		# Single Low-9 Quotation Mark
+replace U+201C = U+0022 	# Left Double Quotation Mark
+replace U+201D = U+0022 	# Right Double Quotation Mark
+replace U+201E = U+0022 	# Double Low-9 Quotation Mark
+replace U+2022 = "*"		# Bullet
+replace U+2026 = "..."		# Horizontal Ellipsis
+replace U+010000 : U+10FFFF = xmldec # all extended Unicode
+#
+# A keyword can be the right side of a replace rule, to convert matched text
+# with a pre-defined format:
+#
+#     custom - placeholder for special requests
+#     decnum - decimal character number (generic)
+#     hexnum - hexadecimal character number (generic)
+#     java16 - Java UTF-16 backslash notation
+#     octnum - octal character number (generic)
+#     uninum - Unicode character number (notation)
+#     xmldec - XML decimal character reference
+#     xmlhex - XML hexadecimal character reference
+#
+# If this configuration file is not found, or if no conversion rules are
+# defined, then the program will change some left and right quotes into plain
+# quotes, and some dashes into hyphens. See also any "Character Map"
+# application.
+#
+# Rules should be consistent: produce the same result no matter how many times
+# they are applied.
+#
+###############################################################################
+#
+# end of PlainText3.txt
+#
